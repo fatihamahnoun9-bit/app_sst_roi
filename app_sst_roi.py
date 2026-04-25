@@ -594,6 +594,11 @@ with tab4:
     # Radar chart — secteurs
     categories = ["ROI moyen", "Taux sinistralité\n(inversé)", "Coût accident\n(€k)", "Multiplicateur\nindirect"]
 
+    def hex_to_rgba(hex_color, alpha=0.13):
+        h = hex_color.lstrip("#")
+        r, g, b = int(h[0:2], 16), int(h[2:4], 16), int(h[4:6], 16)
+        return f"rgba({r},{g},{b},{alpha})"
+
     fig5 = go.Figure()
     for nom, data in SECTEURS.items():
         vals_radar = [
@@ -611,7 +616,7 @@ with tab4:
             name=nom,
             line=dict(color=data["color"], width=2),
             fill="toself",
-            fillcolor=data["color"] + "22",
+            fillcolor=hex_to_rgba(data["color"]),
         ))
 
     fig5.update_layout(
